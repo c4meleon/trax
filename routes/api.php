@@ -18,6 +18,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::middleware('auth:api')->namespace('API')->group(function () {
+    Route::get('cars', 'CarController@index')->name('car.index');
+    Route::post('cars', 'CarController@store')->name('car.store');
+    Route::get('cars/{car}', 'CarController@show')->name('car.show');
+    Route::delete('cars/delete/{car}', 'CarController@destroy')->name('car.destroy');
+
+    Route::get('trips', 'TripController@index')->name('trip.index');
+    Route::post('trips', 'TripController@store')->name('trip.store');
+});
 
 //////////////////////////////////////////////////////////////////////////
 /// Mock Endpoints To Be Replaced With RESTful API.
